@@ -7,3 +7,5 @@ drone = tello.Tello()
 drone.connect()
 
 print(me.get_battery())
+
+me.land
