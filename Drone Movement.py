@@ -121,13 +121,10 @@ def get_flight():
         global turn
         turn = 180
     if x <= wp_x and y == wp_x:
-        global turn
         turn = 0
     if x == wp_x and y >= wp_y:
-        global turn
         turn = -90
     if x == wp_x and y <= wp_y:
-        global turn
         turn = 90
 def fly():
     cw = False
