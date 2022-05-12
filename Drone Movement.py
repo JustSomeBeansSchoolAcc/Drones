@@ -149,5 +149,33 @@ def fly():
         tello.cw(turn)
     cw = False
     ccw = False
+    x = wp_x
+    y = wp_y
+def go_home():
+    wp_home()
+    if x <= wp_x and y >= wp_y:
+        tri1()
+    if x >= wp_x and y >= wp_y:
+        tri2()
+    if x <= wp_x and y <= wp_y:
+        tri3()
+    if x >= wp_x and y <= wp_y:
+        tri4()
+    if x >= wp_x and y == wp_y:
+        global turn
+        turn = 180
+    if x <= wp_x and y == wp_x:
+        turn = 0
+    if x == wp_x and y >= wp_y:
+        turn = -90
+    if x == wp_x and y <= wp_y:
+        turn = 90
+    fly()
+    tello.down(250)
 wp_home()
 tello.up(250)
+for _ in itertools.repeat(None, 20):
+    get_flight()
+    fly()
+go_home()
+print("finished")
