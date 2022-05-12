@@ -168,7 +168,7 @@ def get_flight():  # chooses a new waypoint and executes the calculations needed
     if choose == 8:
         wp_8()
     if x == wp_x and y == wp_y:  # tests where the new waypoint is relative to drone's current position and uses the
-        special()  # correct function to do calculations
+        special()                # correct function to do calculations
     if x < wp_x and y >= wp_y:
         tri1()
     if x > wp_x and y >= wp_y:
@@ -233,19 +233,19 @@ def go_home():  # sends the drone back to the launch pad and lands it
         global turn
         turn = -90
     if x < wp_x and y == wp_x:
-        turn = 0
+        turn = 90
     if x == wp_x and y > wp_y:
         turn = 180
     if x == wp_x and y < wp_y:
         turn = 0
     fly()
-    drone.move_down(200)
+    drone.move_down(170)
     drone.land()
 
 
 wp_home() # sets the waypoint as home
 drone.takeoff()  # drone takes off
-drone.move_up(200)  # drone gets to altitude
+drone.move_up(170)  # drone gets to altitude
 wp_3()  # sends drone to waypoint 3 to ensure drone enters area required for assignment.
 tri1()
 fly()
