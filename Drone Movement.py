@@ -1,4 +1,4 @@
-import math
+import math   # imports necessary packages
 import random
 import djitellopy
 import time
@@ -6,177 +6,249 @@ import itertools
 from djitellopy import tello
 drone = tello.Tello()
 drone.connect()
-x = 50
-y = 50
+x = 90  # designates global variables
+y = 870
 wp_x = 0
 wp_y = 0
-def wp_home():
-    wp_x = 50
-    wp_y = 50
-def wp_a():
+turn = 0
+dis = 0
+
+
+def wp_home():  # wp stands for waypoint. Each wp function sets the coordinates of the new target waypoint
+    global wp_x, wp_y
+    wp_x = 90
+    wp_y = 870
+
+
+def wp_1():
+    global wp_x, wp_y
+    wp_x = 100
+    wp_y = 800
+
+
+def wp_2():
+    global wp_x, wp_y
+    wp_x = 500
+    wp_y = 800
+
+
+def wp_3():
+    global wp_x, wp_y
+    wp_x = 500
+    wp_y = 100
+
+
+def wp_4():
+    global wp_x, wp_y
     wp_x = 100
     wp_y = 100
-def wp_b():
-    wp_x = 100
-    wp_y = 0
-def wp_c():
-    wp_X = 0
-    wp_y = 0
-def wp_d():
-    wp_x = 0
-    wp_y = 100
-def tri1():
-    if x >= wp_x:
-        b = x - wp_x
-    if x <= wp_x:
+
+
+def wp_5():
+    global wp_x, wp_y
+    wp_x = 200
+    wp_y = 700
+
+
+def wp_6():
+    global wp_x, wp_y
+    wp_x = 400
+    wp_y = 700
+
+
+def wp_7():
+    global wp_x, wp_y
+    wp_x = 400
+    wp_y = 200
+
+
+def wp_8():
+    global wp_x, wp_y
+    wp_x = 200
+    wp_y = 200
+
+
+def tri1():  # tri functions calculate the shortest distance between the drone's current position and
+    if x > wp_x:    # the target waypoint using the pythagorean theorem. It also calculates the angle the
+        b = x - wp_x  # drone needs to turn using the law of cosines
+    if x < wp_x:
         b = wp_x - x
-    if y >= wp_y:
+    if y > wp_y:
+        a = y - wp_y
+    if y < wp_y:
+        a = wp_y - y
+    c = math.sqrt((a ** 2) + (b ** 2))  # calculates side c
+    stp1 = (a ** 2) - ((b ** 2) + (c ** 2))
+    stp2 = -2 * b * c
+    stp3 = stp1 / stp2
+    stp4 = math.degrees(math.acos(stp3))  # calculates angle A
+    global turn, dis
+    turn = round(180 - stp4)  # sets turn to correct angle based on flying down and to the right
+    dis = round(c)  # sets flight distance to c
+
+
+def tri2():  # same as tri1 but modified for different flight direction
+    if x > wp_x:
+        b = x - wp_x
+    if x < wp_x:
+        b = wp_x - x
+    if y > wp_y:
         a = y - wp_y
     if y < wp_y:
         a = wp_y - y
     c = math.sqrt((a ** 2) + (b ** 2))
     stp1 = (a ** 2) - ((b ** 2) + (c ** 2))
     stp2 = -2 * b * c
-    stp3 = (stp1) / (stp2)
+    stp3 = stp1 / stp2
     stp4 = math.degrees(math.acos(stp3))
-    global turn
-    turn = 180 - stp4
-    global dis
-    dis = c
-def tri2():
-    if x >= wp_x:
+    global turn, dis
+    turn = round(-1 * (180 - stp4))  # sets turn to correct angle based on flying down and to the left
+    dis = round(c)
+
+
+def tri3():  # same as tri1 but modified for different flight direction
+    if x > wp_x:
         b = x - wp_x
-    if x <= wp_x:
+    if x < wp_x:
         b = wp_x - x
-    if y >= wp_y:
+    if y > wp_y:
         a = y - wp_y
     if y < wp_y:
         a = wp_y - y
     c = math.sqrt((a ** 2) + (b ** 2))
     stp1 = (a ** 2) - ((b ** 2) + (c ** 2))
     stp2 = -2 * b * c
-    stp3 = (stp1) / (stp2)
+    stp3 = stp1 / stp2
     stp4 = math.degrees(math.acos(stp3))
-    global turn
-    turn = -1 * (180 - stp4)
-    global dis
-    dis = c
-def tri3():
-    if x >= wp_x:
+    global turn, dis
+    turn = round(stp4 * -1)  # sets turn to correct angle based on flying up and to the left
+    dis = round(c)
+
+
+def tri4():  # same as tri1 but modified for different flight direction
+    if x > wp_x:
         b = x - wp_x
-    if x <= wp_x:
+    if x < wp_x:
         b = wp_x - x
-    if y >= wp_y:
+    if y > wp_y:
         a = y - wp_y
     if y < wp_y:
         a = wp_y - y
     c = math.sqrt((a ** 2) + (b ** 2))
     stp1 = (a ** 2) - ((b ** 2) + (c ** 2))
     stp2 = -2 * b * c
-    stp3 = (stp1) / (stp2)
+    stp3 = stp1 / stp2
     stp4 = math.degrees(math.acos(stp3))
+    global turn, dis
+    turn = round(stp4)  # sets turn to correct angle based on flying up and to the right
+    dis = round(c)
+
+
+def special():  # used in the new waypoint
+    get_flight()
+
+
+def get_flight(): # chooses a random waypoint
     global turn
-    turn = stp4 * -1
-    global dis
-    dis = c
-def tri4():
-    if x >= wp_x:
-        b = x - wp_x
-    if x <= wp_x:
-        b = wp_x - x
-    if y >= wp_y:
-        a = y - wp_y
-    if y < wp_y:
-        a = wp_y - y
-    c = math.sqrt((a ** 2) + (b ** 2))
-    stp1 = (a ** 2) - ((b ** 2) + (c ** 2))
-    stp2 = -2 * b * c
-    stp3 = (stp1) / (stp2)
-    stp4 = math.degrees(math.acos(stp3))
-    global turn
-    turn = stp4
-    global dis
-    dis = c
-def get_flight():
-    choose = random.randint(1, 5)
+    choose = random.randint(1, 8)
     if choose == 1:
-        wp_home()
+        wp_1()
     if choose == 2:
-        wp_a()
+        wp_2()
     if choose == 3:
-        wp_b()
+        wp_3()
     if choose == 4:
-        wp_c()
+        wp_4()
     if choose == 5:
-        wp_d()
-    if x <= wp_x and y >= wp_y:
+        wp_5()
+    if choose == 6:
+        wp_6()
+    if choose == 7:
+        wp_7()
+    if choose == 8:
+        wp_8()
+    if x == wp_x and y == wp_y:  # tests where the new waypoint is relative to drone's current position and uses the
+        special()  # correct function to do calculations
+    if x < wp_x and y >= wp_y:
         tri1()
-    if x >= wp_x and y >= wp_y:
+    if x > wp_x and y >= wp_y:
         tri2()
-    if x <= wp_x and y <= wp_y:
+    if x < wp_x and y <= wp_y:
         tri3()
-    if x >= wp_x and y <= wp_y:
+    if x > wp_x and y <= wp_y:
         tri4()
-    if x >= wp_x and y == wp_y:
-        global turn
-        turn = 180
-    if x <= wp_x and y == wp_x:
-        turn = 0
-    if x == wp_x and y >= wp_y:
+    if x > wp_x and y == wp_y:
         turn = -90
-    if x == wp_x and y <= wp_y:
+    if x < wp_x and y == wp_x:
         turn = 90
-def fly():
+    if x == wp_x and y > wp_y:
+        turn = 180
+    if x == wp_x and y < wp_y:
+        turn = 0
+
+
+def fly():  # executes flying the drone
+    global x, y
     cw = False
     ccw = False
-    if turn >= 0:
-        tello.cw(turn)
+    if turn > 0:
+        drone.rotate_clockwise(turn)  # determines whether drone needs to rotate clockwise or counterclockwise
         cw = True
-    if turn <= 0:
-        tello.ccw(abs(turn))
+        time.sleep(.5)
+    if turn < 0:
+        drone.rotate_counter_clockwise(abs(turn))
         ccw = True
-    if dis >= 500:
+        time.sleep(.5)
+    if dis > 500:  # if the drone's path is more than 5 meters creates an if loop with remainder
         rep = math.floor(dis / 500)
         rem = dis % 500
         for _ in itertools.repeat(None, rep):
-            tello.forward(500)
-        tello.forward(rem)
-    if dis <= 500:
-        tello.forward(dis)
-    if cw == True:
-        tello.ccw(turn)
-    if ccw == True:
-        tello.cw(turn)
-    cw = False
-    ccw = False
+            drone.move_forward(500)
+        drone.move_forward(rem)
+        time.sleep(.5)
+    if dis < 500:
+        drone.move_forward(dis)
+        time.sleep(.5)
+    if cw is True:  # rotates the drone back to forward position
+        drone.rotate_counter_clockwise(turn)
+        time.sleep(.5)
+    if ccw is True:
+        drone.rotate_clockwise(turn)
+        time.sleep(.5)
     x = wp_x
     y = wp_y
-def go_home():
+
+
+def go_home():  # sends the drone back to the launch pad and lands it
     wp_home()
-    if x <= wp_x and y >= wp_y:
+    if x < wp_x and y > wp_y:
         tri1()
-    if x >= wp_x and y >= wp_y:
+    if x > wp_x and y > wp_y:
         tri2()
-    if x <= wp_x and y <= wp_y:
+    if x < wp_x and y < wp_y:
         tri3()
-    if x >= wp_x and y <= wp_y:
+    if x > wp_x and y < wp_y:
         tri4()
-    if x >= wp_x and y == wp_y:
+    if x > wp_x and y == wp_y:
         global turn
-        turn = 180
-    if x <= wp_x and y == wp_x:
-        turn = 0
-    if x == wp_x and y >= wp_y:
         turn = -90
-    if x == wp_x and y <= wp_y:
-        turn = 90
+    if x < wp_x and y == wp_x:
+        turn = 0
+    if x == wp_x and y > wp_y:
+        turn = 180
+    if x == wp_x and y < wp_y:
+        turn = 0
     fly()
-    tello.down(230)
-    tello.land
-wp_home()
-tello.up(250)
-for _ in itertools.repeat(None, 20):
+    drone.move_down(200)
+    drone.land()
+
+
+wp_home() # sets the waypoint as home
+drone.takeoff()  # drone takes off
+drone.move_up(200)  # drone gets t altitude
+for _ in itertools.repeat(None, 16): #loops get flight and fly
     get_flight()
     fly()
-go_home()
-print("finished")
+    time.sleep(.5)
+go_home()  # brings the drone home
+print("finished")  # indicates finished process. 
