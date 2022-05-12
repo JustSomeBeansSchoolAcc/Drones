@@ -24,7 +24,7 @@ def wp_c():
     wp_y = 0
 def wp_d():
     wp_x = 0
-    wp_y = 0
+    wp_y = 100
 def tri1():
     if x >= wp_x:
         b = x - wp_x
@@ -171,7 +171,8 @@ def go_home():
     if x == wp_x and y <= wp_y:
         turn = 90
     fly()
-    tello.down(250)
+    tello.down(230)
+    tello.land
 wp_home()
 tello.up(250)
 for _ in itertools.repeat(None, 20):
