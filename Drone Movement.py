@@ -148,10 +148,10 @@ def special():  # used in the new waypoint
     get_flight()
 
 
-def get_flight(): # chooses a random waypoint
+def get_flight():  # chooses a new waypoint and executes the calculations needed for fly() function
     global turn
-    choose = random.randint(1, 8)
-    if choose == 1:
+    choose = random.randint(1, 8)  # chooses a random waypoint
+    if choose == 1:  # sets random waypoint
         wp_1()
     if choose == 2:
         wp_2()
@@ -245,7 +245,10 @@ def go_home():  # sends the drone back to the launch pad and lands it
 
 wp_home() # sets the waypoint as home
 drone.takeoff()  # drone takes off
-drone.move_up(200)  # drone gets t altitude
+drone.move_up(200)  # drone gets to altitude
+wp_3()  # sends drone to waypoint 3 to ensure drone enters area required for assignment.
+tri1()
+fly()
 for _ in itertools.repeat(None, 16): #loops get flight and fly
     get_flight()
     fly()
