@@ -149,42 +149,59 @@ def special():  # used in the new waypoint
 
 
 def get_flight():  # chooses a new waypoint and executes the calculations needed for fly() function
-    global turn
+    global turn, dis
     choose = random.randint(1, 8)  # chooses a random waypoint
     if choose == 1:  # sets random waypoint
         wp_1()
+        print("Drone: Heading to waypoint 1")
     if choose == 2:
         wp_2()
+        print("Drone: Heading to waypoint 2")
     if choose == 3:
         wp_3()
+        print("Drone: Heading to waypoint 3")
     if choose == 4:
         wp_4()
+        print("Drone: Heading to waypoint 4")
     if choose == 5:
         wp_5()
+        print("Drone: Heading to waypoint 5")
     if choose == 6:
         wp_6()
+        print("Drone: Heading to waypoint 6")
     if choose == 7:
         wp_7()
+        print("Drone: Heading to waypoint 7")
     if choose == 8:
         wp_8()
+        print("Drone: Heading to waypoint 8")
     if x == wp_x and y == wp_y:  # tests where the new waypoint is relative to drone's current position and uses the
         special()                # correct function to do calculations
+        print("New waypoint is same as current position - selecting new waypoint")
     if x < wp_x and y >= wp_y:
         tri1()
+        print("Drone: Target waypoint diagonal to current position - calculating shortest route to target waypoint")
     if x > wp_x and y >= wp_y:
         tri2()
+        print("Drone: Target waypoint diagonal to current position - calculating shortest route to target waypoint")
     if x < wp_x and y <= wp_y:
         tri3()
+        print("Drone: Target waypoint diagonal to current position - calculating shortest route to target waypoint")
     if x > wp_x and y <= wp_y:
         tri4()
+        print("Drone: Target waypoint diagonal to current position - calculating shortest route to target waypoint")
     if x > wp_x and y == wp_y:
         turn = -90
+        dis = x - wp_x
     if x < wp_x and y == wp_x:
         turn = 90
+        dis = wp_x - x
     if x == wp_x and y > wp_y:
         turn = 180
+        dis = y - wp_y
     if x == wp_x and y < wp_y:
         turn = 0
+        dis = wp_y - y
 
 
 def fly():  # executes flying the drone
@@ -220,6 +237,7 @@ def fly():  # executes flying the drone
 
 
 def go_home():  # sends the drone back to the launch pad and lands it
+    global dis
     wp_home()
     if x < wp_x and y > wp_y:
         tri1()
@@ -232,26 +250,38 @@ def go_home():  # sends the drone back to the launch pad and lands it
     if x > wp_x and y == wp_y:
         global turn
         turn = -90
+        dis = x - wp_x
     if x < wp_x and y == wp_x:
         turn = 90
+        dis = wp_x - x
     if x == wp_x and y > wp_y:
         turn = 180
+        dis = y - wp_y
     if x == wp_x and y < wp_y:
         turn = 0
+        dis = wp_y - y
+    print("Drone: Heading home")
     fly()
+    time.sleep(0.5)
+    print("Drone: Landing")
     drone.move_down(170)
+    time.sleep(0.5)
     drone.land()
 
 
-wp_home() # sets the waypoint as home
+wp_home()  # sets the waypoint as home
 drone.takeoff()  # drone takes off
+print("Drone: Taking off")
+time.sleep(.5)
 drone.move_up(170)  # drone gets to altitude
 wp_3()  # sends drone to waypoint 3 to ensure drone enters area required for assignment.
 tri1()
+time.sleep(.5)
 fly()
-for _ in itertools.repeat(None, 16): #loops get flight and fly
+print("Drone: Heading to waypoint 3")
+for _ in itertools.repeat(None, 16):  # loops get flight and fly
     get_flight()
     fly()
     time.sleep(.5)
 go_home()  # brings the drone home
-print("finished")  # indicates finished process. 
+print("Drone: Finished")  # indicates finished process.
