@@ -161,18 +161,17 @@ def go_home():  # sends the drone back to the launch pad and lands it
     if x == wp_x and y < wp_y:
         turn = 0
     fly()
-    drone.move_down(200)
+    drone.move_down(150)
     drone.land()
 
 
 wp_home()  # sets the waypoint as home
 drone.takeoff()  # drone takes off
 time.sleep(.5)
-drone.move_up(200)  # drone gets t altitude
+drone.move_up(150)  # drone gets t altitude
 for _ in itertools.repeat(None, 16):  # loops get flight and fly
     get_flight()
     time.sleep(.5)
     fly()
     time.sleep(.5)
 go_home()  # brings the drone home
-print("finished")  # indicates finished process.
