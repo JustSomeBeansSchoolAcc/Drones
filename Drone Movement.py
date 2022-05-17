@@ -13,59 +13,14 @@ turn = 0
 dis = 0
 cos = 0
 
-
+def wp(q, w):
+    global wp_x, wp_y
+    wp_x = q
+    wp_y = w
 def wp_home():  # wp stands for waypoint. Each wp function sets the coordinates of the new target waypoint
     global wp_x, wp_y
     wp_x = 90
     wp_y = 870
-
-
-def wp_1():
-    global wp_x, wp_y
-    wp_x = 100
-    wp_y = 800
-
-
-def wp_2():
-    global wp_x, wp_y
-    wp_x = 500
-    wp_y = 800
-
-
-def wp_3():
-    global wp_x, wp_y
-    wp_x = 500
-    wp_y = 100
-
-
-def wp_4():
-    global wp_x, wp_y
-    wp_x = 100
-    wp_y = 100
-
-
-def wp_5():
-    global wp_x, wp_y
-    wp_x = 200
-    wp_y = 700
-
-
-def wp_6():
-    global wp_x, wp_y
-    wp_x = 400
-    wp_y = 700
-
-
-def wp_7():
-    global wp_x, wp_y
-    wp_x = 400
-    wp_y = 200
-
-
-def wp_8():
-    global wp_x, wp_y
-    wp_x = 200
-    wp_y = 200
 
 
 def tri_body():
@@ -118,21 +73,21 @@ def get_flight():  # chooses a random waypoint
     global turn
     choose = random.randint(1, 8)
     if choose == 1:
-        wp_1()
+        wp(100, 800)
     if choose == 2:
-        wp_2()
+        wp(500, 800)
     if choose == 3:
-        wp_3()
+        wp(500, 100)
     if choose == 4:
-        wp_4()
+        wp(100, 100)
     if choose == 5:
-        wp_5()
+        wp(200, 700)
     if choose == 6:
-        wp_6()
+        wp(400, 700)
     if choose == 7:
-        wp_7()
+        wp(400, 200)
     if choose == 8:
-        wp_8()
+        wp(200, 200)
     if x == wp_x and y == wp_y:  # tests where the new waypoint is relative to drone's current position and uses the
         special()  # correct function to do calculations
     if x < wp_x and y >= wp_y:
