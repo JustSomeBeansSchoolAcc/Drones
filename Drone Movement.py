@@ -216,6 +216,7 @@ time.sleep(.5)
 drone.move_up(200)  # drone gets t altitude
 for _ in itertools.repeat(None, 16):  # loops get flight and fly
     get_flight()
+    time.sleep(.5)
     fly()
     time.sleep(.5)
 go_home()  # brings the drone home
