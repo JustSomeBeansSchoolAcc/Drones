@@ -69,8 +69,8 @@ def wp_8():
 
 def tri_body():
     global cos, dis
-    if x > wp_x:    # the target waypoint using the pythagorean theorem. It also calculates the angle the
-        b = x - wp_x  # drone needs to turn using the law of cosines
+    if x > wp_x:  # finds legs b and a
+        b = x - wp_x
     if x < wp_x:
         a = wp_x - x
     if y > wp_y:
@@ -78,14 +78,16 @@ def tri_body():
     if y < wp_y:
         a = wp_y - y
     c = math.sqrt((a ** 2) + (b ** 2))  # calculates side c
-    cos = math.degrees(math.acos((((c ** 2) + (b ** 2)) - (a ** 2)) / (2 * b * c)))
+    cos = math.degrees(math.acos((((c ** 2) + (b ** 2)) - (a ** 2)) / (2 * b * c)))  # gets angle 'A' of
     dis = round(c)
 
-def tri1():  # tri functions calculate the shortest distance between the drone's current position and
+
+def tri1():  # tri functions call the tri_body function then set turn based on where the waypoint is
     global turn
     tri_body()
     turn = round(180 - cos)  # sets turn to correct angle based on flying down and to the right
     time.sleep(.5)
+
 
 def tri2():  # same as tri1 but modified for different flight direction
     global turn
