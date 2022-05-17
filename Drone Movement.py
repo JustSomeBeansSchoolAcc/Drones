@@ -11,36 +11,7 @@ wp_x = 0
 wp_y = 0
 turn = 0
 dis = 0
-
-
-def wp_home():  # wp stands for waypoint. Each wp function sets the coordinates of the new target waypoint
-    global wp_x, wp_y
-    wp_x = 90
-    wp_y = 870
-
-
-def wp_1():
-    global wp_x, wp_y
-    wp_x = 100
-    wp_y = 800
-
-
-def wp_2():
-    global wp_x, wp_y
-    wp_x = 500
-    wp_y = 800
-
-
-def wp_3():
-    global wp_x, wp_y
-    wp_x = 500
-    wp_y = 100
-
-
-def wp_4():
-    global wp_x, wp_y
-    wp_x = 100
-    wp_y = 100
+cos = 0
 
 
 def wp_home():  # wp stands for waypoint. Each wp function sets the coordinates of the new target waypoint
@@ -143,7 +114,7 @@ def special():  # used in the new waypoint
     get_flight()
 
 
-def get_flight(): # chooses a random waypoint
+def get_flight():  # chooses a random waypoint
     global turn
     choose = random.randint(1, 8)
     if choose == 1:
