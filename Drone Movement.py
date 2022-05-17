@@ -43,6 +43,36 @@ def wp_4():
     wp_y = 100
 
 
+def wp_home():  # wp stands for waypoint. Each wp function sets the coordinates of the new target waypoint
+    global wp_x, wp_y
+    wp_x = 90
+    wp_y = 870
+
+
+def wp_1():
+    global wp_x, wp_y
+    wp_x = 100
+    wp_y = 800
+
+
+def wp_2():
+    global wp_x, wp_y
+    wp_x = 500
+    wp_y = 800
+
+
+def wp_3():
+    global wp_x, wp_y
+    wp_x = 500
+    wp_y = 100
+
+
+def wp_4():
+    global wp_x, wp_y
+    wp_x = 100
+    wp_y = 100
+
+
 def wp_5():
     global wp_x, wp_y
     wp_x = 200
@@ -182,6 +212,7 @@ def fly():  # executes flying the drone
         time.sleep(.5)
     x = wp_x
     y = wp_y
+    time.sleep(.5)
 
 
 def go_home():  # sends the drone back to the launch pad and lands it
