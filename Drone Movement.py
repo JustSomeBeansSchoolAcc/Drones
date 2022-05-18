@@ -169,6 +169,9 @@ wp_home()  # sets the waypoint as home
 drone.takeoff()  # drone takes off
 time.sleep(.5)
 drone.move_up(150)  # drone gets t altitude
+wp(500, 100)
+fly()
+time.sleep(.5)
 for _ in itertools.repeat(None, 16):  # loops get flight and fly
     get_flight()
     time.sleep(.5)
